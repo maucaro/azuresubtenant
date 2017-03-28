@@ -10,10 +10,8 @@ public static async Task<object> Run(HttpRequestMessage req, TraceWriter log)
     log.Info($"Webhook was triggered!");
     string jsonContent = await req.Content.ReadAsStringAsync();
     List<SubscriptionObject> data = JsonConvert.DeserializeObject<List<SubscriptionObject>>(jsonContent);
-    if (data.Count == 0) {
-        return req.CreateResponse(HttpStatusCode.BadRequest, new {
-            error = "Please pass non-null SubsriptionGuid array in the request body."
-        });
+    if (data == null || data.Count == 0) {
+        return req.CreateResponse(HttpStatusCode.OK, JsonConvert.SerializeObject("Please pass non-null SubsriptionGuid array in the request body."));
     }
     log.Info($"Processing {data.Count.ToString()} subscription(s).");
     foreach (SubscriptionObject sg in data) {

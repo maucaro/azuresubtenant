@@ -3,8 +3,8 @@
     {
       "type": "httpTrigger",
       "direction": "in",
-      "webHookType": "genericJson",
-      "name": "req"
+      "name": "req",
+      "authLevel": "function"
     },
     {
       "type": "http",
